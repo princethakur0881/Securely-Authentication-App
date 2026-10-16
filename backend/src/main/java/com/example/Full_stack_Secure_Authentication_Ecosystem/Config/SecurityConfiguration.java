@@ -41,16 +41,22 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
+                // Local development
                 "http://localhost:3000",
                 "http://127.0.0.1:3000",
                 "http://localhost:5173",
                 "http://localhost:5174",
                 "http://127.0.0.1:5173",
-                "http://127.0.0.1:5174"
+                "http://127.0.0.1:5174",
+
+                // Vercel production and deployment URLs
+                "https://securelyathenticationapp.vercel.app",
+                "https://securelyathenticationapp-adb4qmqpa.vercel.app"
         ));
 
         configuration.setAllowedMethods(List.of(
-                "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
+                "GET", "POST", "PUT", "PATCH",
+                "DELETE", "OPTIONS"
         ));
 
         configuration.setAllowedHeaders(List.of(
@@ -68,6 +74,7 @@ public class SecurityConfiguration {
                 new UrlBasedCorsConfigurationSource();
 
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 
