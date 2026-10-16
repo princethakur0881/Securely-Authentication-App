@@ -37,6 +37,7 @@ public class SecurityConfiguration {
     }
 
 
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -48,14 +49,12 @@ public class SecurityConfiguration {
                 "http://localhost:5174",
                 "http://127.0.0.1:5173",
                 "http://127.0.0.1:5174",
-               "securelyauthentication-lx5dzc98f.vercel.app",
-                "securelyauthentication.vercel.app"
-
+                "https://securelyauthentication.vercel.app",
+                "https://securelyauthentication-lx5dzc98f.vercel.app"
         ));
 
         configuration.setAllowedMethods(List.of(
-                "GET", "POST", "PUT", "PATCH",
-                "DELETE", "OPTIONS"
+                "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
         ));
 
         configuration.setAllowedHeaders(List.of("*"));
@@ -70,6 +69,7 @@ public class SecurityConfiguration {
 
         return source;
     }
+
 
 
     @Bean
