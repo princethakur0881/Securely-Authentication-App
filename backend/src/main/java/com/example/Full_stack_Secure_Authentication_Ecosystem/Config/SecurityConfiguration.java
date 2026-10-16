@@ -48,8 +48,9 @@ public class SecurityConfiguration {
                 "http://localhost:5174",
                 "http://127.0.0.1:5173",
                 "http://127.0.0.1:5174",
-                "https://securelyathenticationapp.vercel.app",
-                "https://securelyathenticationapp-6jz6ei98v.vercel.app"
+               "securelyauthentication-lx5dzc98f.vercel.app",
+                "securelyauthentication.vercel.app"
+
         ));
 
         configuration.setAllowedMethods(List.of(
