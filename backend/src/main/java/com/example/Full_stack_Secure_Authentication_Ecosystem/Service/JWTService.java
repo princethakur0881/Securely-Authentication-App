@@ -4,6 +4,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
+import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,19 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JWTService {
 
-    private static final String secretKey = "YUhSMGNITTZMeTkzWldKaGRHVXRhRzkzZEM1amIyMGlhWE1pTkdjdE9TNWpiMjA9"; // Correct Base64 encoded key
-    private final long jwtExpiration = 360000; // Expiration in milliseconds (e.g., 6 minutes)
+    @Value("${JWT_SECRET}")
+    private String secretKey;
+
+    @Value("${jwt.expiration:360000}")
+    private long jwtExpiration;
 
     // Extract username from the token
-    public static String extractUsername(String token) {
+    public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
     // Fixed: Added <T> before the return type and specified Function generics
-    public static <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    public  <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
@@ -52,7 +56,7 @@ public class JWTService {
     }
 
     // Extract all claims from the token
-    private static Claims extractAllClaims(String token) {
+    private  Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
@@ -77,7 +81,7 @@ public class JWTService {
     }
 
     // Decode the secret key
-    private static Key getSignInKey() {
+    private  Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
