@@ -37,30 +37,19 @@ public class SecurityConfiguration {
     }
 
 
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-         //Stable production frontend
         configuration.setAllowedOrigins(List.of(
-                "https:securelyathenticationapp.vercel.app"
-        ));
-        configuration.setAllowedOrigins(List.of(
-                // Local development
-                "http:localhost:3000",
-                "http:127.0.0.1:3000",
-                "http:localhost:5173",
-                "http:localhost:5174",
-                "http:127.0.0.1:5173",
-                "http:127.0.0.1:5174"
-
-               
-        ));
-
-         //Allow preview deployments of this Vercel project
-        configuration.setAllowedOriginPatterns(List.of(
-                "https:securelyathenticationapp-*.vercel.app"
+                "http://localhost:3000",
+                "http://127.0.0.1:3000",
+                "http://localhost:5173",
+                "http://localhost:5174",
+                "http://127.0.0.1:5173",
+                "http://127.0.0.1:5174",
+                "https://securelyathenticationapp.vercel.app",
+                "https://securelyathenticationapp-6jz6ei98v.vercel.app"
         ));
 
         configuration.setAllowedMethods(List.of(
@@ -68,13 +57,7 @@ public class SecurityConfiguration {
                 "DELETE", "OPTIONS"
         ));
 
-        configuration.setAllowedHeaders(List.of(
-                "Authorization",
-                "Content-Type",
-                "Accept",
-                "Origin"
-        ));
-
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("Authorization"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
