@@ -36,22 +36,31 @@ public class SecurityConfiguration {
         this.loginRateLimitFilter = loginRateLimitFilter;
     }
 
+
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
+         //Stable production frontend
+        configuration.setAllowedOrigins(List.of(
+                "https:securelyathenticationapp.vercel.app"
+        ));
         configuration.setAllowedOrigins(List.of(
                 // Local development
-                "http://localhost:3000",
-                "http://127.0.0.1:3000",
-                "http://localhost:5173",
-                "http://localhost:5174",
-                "http://127.0.0.1:5173",
-                "http://127.0.0.1:5174",
+                "http:localhost:3000",
+                "http:127.0.0.1:3000",
+                "http:localhost:5173",
+                "http:localhost:5174",
+                "http:127.0.0.1:5173",
+                "http:127.0.0.1:5174"
 
-                // Vercel production and deployment URLs
-                "https://securelyathenticationapp.vercel.app",
-                "https://securelyathenticationapp-adb4qmqpa.vercel.app"
+               
+        ));
+
+         //Allow preview deployments of this Vercel project
+        configuration.setAllowedOriginPatterns(List.of(
+                "https:securelyathenticationapp-*.vercel.app"
         ));
 
         configuration.setAllowedMethods(List.of(
@@ -77,6 +86,7 @@ public class SecurityConfiguration {
 
         return source;
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(
