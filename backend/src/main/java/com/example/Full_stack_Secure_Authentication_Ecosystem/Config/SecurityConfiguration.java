@@ -52,6 +52,9 @@ public class SecurityConfiguration {
                 "https://securely-jiue8jj0g-prince-thakurs-projects-f001ad18.vercel.app",
                 "https://securely-nine.vercel.app"
         ));
+        configuration.setAllowedOriginPatterns(List.of(
+                "https://securely-*.vercel.app"
+        ));
 
         configuration.setAllowedMethods(List.of(
                 "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
