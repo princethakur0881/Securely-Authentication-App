@@ -19,7 +19,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.HexFormat;
-@Slf4j
 @Service
 public class EmailVerificationService {
 

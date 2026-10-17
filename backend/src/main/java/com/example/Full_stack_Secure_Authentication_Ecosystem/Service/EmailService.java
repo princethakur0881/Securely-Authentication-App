@@ -6,14 +6,14 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Map;
 
 @Service
 public class EmailService {
 
     private final RestClient restClient;
-    private final ObjectMapper objectMapper;
+
 
     @Value("${resend.api-key}")
     private String resendApiKey;
@@ -21,19 +21,12 @@ public class EmailService {
     @Value("${app.mail.from:onboarding@resend.dev}")
     private String fromEmail;
 
-//    public EmailService(RestClient.Builder restClientBuilder) {
-//        this.restClient = restClientBuilder
-//                .baseUrl("https://api.resend.com")
-//                .build();
-//    }
-public EmailService(
-        RestClient.Builder restClientBuilder,
-        ObjectMapper objectMapper) {
-    this.restClient = restClientBuilder
+public EmailService() {
+    this.restClient = RestClient.builder()
             .baseUrl("https://api.resend.com")
             .build();
-    this.objectMapper = objectMapper;
 }
+
 
     public void sendVerificationOtpEmail(String toEmail, String otp) {
         String html = """
