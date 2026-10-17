@@ -6,9 +6,12 @@ import com.example.Full_stack_Secure_Authentication_Ecosystem.Entity.User;
 import com.example.Full_stack_Secure_Authentication_Ecosystem.Repository.EmailVerificationOtpRepository;
 import com.example.Full_stack_Secure_Authentication_Ecosystem.Repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -16,14 +19,15 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.HexFormat;
-
+@Slf4j
 @Service
 public class EmailVerificationService {
 
     private static final int OTP_LENGTH = 6;
     private static final int OTP_VALID_MINUTES = 10;
     private static final int MAX_ATTEMPTS = 5;
-
+    private static final Logger log =
+            LoggerFactory.getLogger(EmailVerificationService.class);
     private final EmailVerificationOtpRepository otpRepository;
     private final UserRepository userRepository;
     private final EmailService emailService;
@@ -69,7 +73,12 @@ public class EmailVerificationService {
 
         otpRepository.save(otpEntity);
 
-        emailService.sendVerificationOtpEmail(user.getEmail(), otp);
+        try {
+            emailService.sendVerificationOtpEmail(user.getEmail(), otp);
+        } catch (RuntimeException e) {
+            log.error("OTP request failed while sending verification email", e);
+            throw e;
+        }
     }
 
     @Transactional
