@@ -53,7 +53,7 @@ public class EmailVerificationController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of(
-                            "message", "Unable to send OTP. Please try again."
+                            "message", "OTP sent failed. because this web.The OTP is not being sent because our web application does not have a specific registered domain. If you want the OTP service, you can clone the repository and set up SMTP."
                     ));
         }
     }
