@@ -2,6 +2,7 @@
 
 
 WEBSITE URL-> [securely-nine.vercel.app](https://securely-nine.vercel.app/)
+@PRINCE KUMAR 
 A full-stack authentication application built with **Spring Boot, React, MySQL, JWT, and Docker**. It demonstrates user registration, login, email verification, password recovery, and protected API access.
 
 ## Features
@@ -108,7 +109,7 @@ docker compose logs --tail=100
 
 With the current local Docker port mapping:
 
-http://localhost:3000
+[WEBSITE URL](https://securely-nine.vercel.app/)
 
 ### 6. Stop the application
 
